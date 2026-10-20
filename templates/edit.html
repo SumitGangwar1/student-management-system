@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <h2>Student Management</h2>
+        <span>Edit Student</span>
+    </header>
+
+    <main class="container">
+        <section class="welcome">
+            <h1>Edit Student Details</h1>
+            <p>Update the student's information below.</p>
+        </section>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="message">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <section class="card">
+            <h2>Student ID: {{ student[0] }}</h2>
+
+            <form action="{{ url_for('update_student', student_id=student[0]) }}"
+                  method="POST">
+
+                <label for="name">Student Name</label>
+                <input type="text" id="name" name="name"
+                       value="{{ student[1] }}" required>
+
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age"
+                       min="1" value="{{ student[2] }}" required>
+
+                <label for="course">Course</label>
+                <input type="text" id="course" name="course"
+                       value="{{ student[3] }}" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email"
+                       value="{{ student[4] }}" required>
+
+                <button type="submit">Update Student</button>
+            </form>
+
+            <p style="margin-top: 20px;">
+                <a class="reset-link" href="{{ url_for('index') }}">
+                    Back to Student Records
+                </a>
+            </p>
+        </section>
+    </main>
+
+</body>
+</html>
